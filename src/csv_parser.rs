@@ -6,6 +6,7 @@ use std::path::Path;
 use crate::integral;
 
 pub struct ParseData {
+    pub file_name: String,
     pub title: String,
     pub rate: String,
     pub unit: String,
@@ -19,14 +20,16 @@ pub fn csv_parse(path: &str) -> Result<(), Box<dyn Error>> {
     let path = Path::new(path);
     let file = File::open(path)?;
     let mut rdr = ReaderBuilder::new().has_headers(false).from_reader(file);
+    let file_name = path.file_stem().unwrap().to_str().unwrap();
     let mut data = ParseData {
+        file_name: file_name.to_string(),
         title: String::new(),
         rate: String::new(),
         unit: String::new(),
         time: String::new(),
-        ns_acc: Vec::new(),
-        ew_acc: Vec::new(),
-        ud_acc: Vec::new(),
+        ns_acc: vec![0.0; 3],
+        ew_acc: vec![0.0; 3],
+        ud_acc: vec![0.0; 3],
     };
 
     for (i, result) in rdr.records().enumerate() {
@@ -51,7 +54,7 @@ pub fn csv_parse(path: &str) -> Result<(), Box<dyn Error>> {
         }
     }
 
-    integral::integral(&data);
+    integral::main(&data);
 
     Ok(())
 }
