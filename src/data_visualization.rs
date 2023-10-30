@@ -47,7 +47,7 @@ fn plot_data(
             .map(|&(x, y)| Circle::new((x, y), 2, RED.filled())),
     )?;
 
-    // グラフにデータをプロット （x y）のイテレーターを指定イテ
+    // グラフにデータをプロット （x y）のイテレーターを指定
     chart.draw_series(LineSeries::new(
         x_values
             .iter()
@@ -114,4 +114,3 @@ pub fn main(data: &PlotData) -> Result<(), Box<dyn std::error::Error>> {
     println!("Max: {}, Min: {}", max, min);
     Ok(())
 }
-

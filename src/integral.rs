@@ -18,7 +18,6 @@ pub struct PlotData {
     pub ud_dist: Vec<f64>,
 }
 
-// 台形公式を用いた加速度数値積分
 // 変位(cm) 速度(cm/sec) 加速度(gal) に変換
 // Convert acceleration (in gal) to velocity (in cm/sec)
 fn acc_to_vel(ns_acc: &[f64], ew_acc: &[f64], ud_acc: &[f64]) -> (Vec<f64>, Vec<f64>, Vec<f64>) {
